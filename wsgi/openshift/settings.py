@@ -11,12 +11,16 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import imp
+import sys
 
 ON_OPENSHIFT = False
 if 'OPENSHIFT_REPO_DIR' in os.environ:
     ON_OPENSHIFT = True
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
+
+# Fixing the "WSGI unfound" bug
+sys.path.append(os.path.join(BASE_DIR, '..', ".."))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
