@@ -18,6 +18,14 @@ if 'OPENSHIFT_REPO_DIR' in os.environ:
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
+# Fixing the "WSGI unfound" bug (bug #2)
+# As the wsgi.py directory is "/"
+# And the BASE_DIR is this directory ("/wsgi/openshift/")
+# We simply add (if needed) "BASE_DIR/../../" to the list of os.path
+REPO_DIR = os.path.normpath(os.path.join(BASE_DIR, '..', '..'))
+if REPO_DIR not in sys.path:
+    sys.path.append(REPO_DIR)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
